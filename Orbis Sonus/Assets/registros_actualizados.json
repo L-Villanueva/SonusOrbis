@@ -1,0 +1,270 @@
+{
+    "registros": [
+        {
+            "nombre": "MOTOR DE LANCHA 1",
+            "fuentes": "Stereo Binaural",
+            "audio": ["MOTOR_DE_LANCHA_1_audio", "MOTOR_DE_LANCHA_2_audio"],
+            "coordenadas": {
+                "lat": 10.299722,
+                "lng": -65.875833
+            },
+            "hora": "17:43",
+            "imagen": null,
+            "video": "video_1",
+            "dia": "2025-10-03",
+            "type": "motor"
+        },
+        {
+            "nombre": "ANTRÓPICO 1",
+            "fuentes": "Surround",
+            "audio": ["ANTROPICO_1_audio"],
+            "coordenadas": {
+                "lat": 10.302778,
+                "lng": -65.885556
+            },
+            "hora": "17:50",
+            "imagen": "image_3",
+            "video": null,
+            "dia": "2025-10-03",
+            "type": "antropico"
+        },
+        {
+            "nombre": "NAT 1",
+            "fuentes": "Surround",
+            "audio": ["LOGIC"],
+            "coordenadas": {
+                "lat": 10.295,
+                "lng": -65.872778
+            },
+            "hora": "18:00",
+            "imagen": "image_4",
+            "video": null,
+            "dia": "2025-10-03",
+            "type": "naturaleza"
+        },
+        {
+            "nombre": "ANTRÓPICO Y AVES",
+            "fuentes": "Surround",
+            "audio": ["ANTROPICO_Y_AVES_audio"],
+            "coordenadas": {
+                "lat": 10.295278,
+                "lng": -65.872222
+            },
+            "hora": "18:14",
+            "imagen": null,
+            "video": null,
+            "dia": "2025-10-03",
+            "type": "antropico"
+        },
+        {
+            "nombre": "ATARRAYA",
+            "fuentes": "Surround",
+            "audio": ["ATARRAYA_1_audio"],
+            "coordenadas": {
+                "lat": 10.3,
+                "lng": -65.875278
+            },
+            "hora": "18:30",
+            "imagen": null,
+            "video": "video_6",
+            "dia": "2025-10-03",
+            "type": "atarraya"
+        },
+        {
+            "nombre": "PLAYA",
+            "fuentes": "Stereo Binaural",
+            "audio": ["PLAYA_1_audio"],
+            "coordenadas": {
+                "lat": 10.3075,
+                "lng": -65.876944
+            },
+            "hora": "14:00",
+            "imagen": "image_7",
+            "video": null,
+            "dia": "2025-10-04",
+            "type": "playa"
+        },
+        {
+            "nombre": "BOCA",
+            "fuentes": "Stereo Binaural",
+            "audio": ["BOCA_audio"],
+            "coordenadas": {
+                "lat": 10.304444,
+                "lng": -65.874444
+            },
+            "hora": "14:10",
+            "imagen": "image_8",
+            "video": null,
+            "dia": "2025-10-04",
+            "type": "playa"
+        },
+        {
+            "nombre": "NAT 2",
+            "fuentes": "Stereo Binaural",
+            "audio": ["NAT_2_audio"],
+            "coordenadas": {
+                "lat": 10.314167,
+                "lng": -65.886111
+            },
+            "hora": "17:10",
+            "imagen": null,
+            "video": "video_9",
+            "dia": "2025-10-04",
+            "type": "naturaleza"
+        },
+        {
+            "nombre": "NAT 3",
+            "fuentes": "Stereo Binaural",
+            "audio": ["NAT_3_audio"],
+            "coordenadas": {
+                "lat": 10.298333,
+                "lng": -65.883333
+            },
+            "hora": "17:20",
+            "imagen": null,
+            "video": "video_9",
+            "dia": "2025-10-04",
+            "type": "naturaleza"
+        },
+        {
+            "nombre": "LA COLONIA",
+            "fuentes": "Surround",
+            "audio": ["LA_COLONIA_audio"],
+            "coordenadas": {
+                "lat": 10.294722,
+                "lng": -65.8725
+            },
+            "hora": "17:46",
+            "imagen": null,
+            "video": "video_10",
+            "dia": "2025-10-04",
+            "type": "aves"
+        },
+        {
+            "nombre": "NAT 4",
+            "fuentes": "Surround",
+            "audio": ["NAT_4_audio"],
+            "coordenadas": {
+                "lat": 10.285556,
+                "lng": -65.853333
+            },
+            "hora": "12:15",
+            "imagen": null,
+            "video": "video_12",
+            "dia": "2025-10-26",
+            "type": "naturaleza"
+        },
+        {
+            "nombre": "AVES",
+            "fuentes": "Surround",
+            "audio": ["AVES_1_audio"],
+            "coordenadas": {
+                "lat": 10.284167,
+                "lng": -65.851667
+            },
+            "hora": "12:27",
+            "imagen": null,
+            "video": "video_13",
+            "dia": "2025-10-26",
+            "type": "aves"
+        },
+        {
+            "nombre": "NAT 5",
+            "fuentes": "Surround",
+            "audio": ["NAT_5_audio"],
+            "coordenadas": {
+                "lat": 10.278889,
+                "lng": -65.839167
+            },
+            "hora": "12:50",
+            "imagen": null,
+            "video": null,
+            "dia": "2025-10-26",
+            "type": "naturaleza"
+        },
+        {
+            "nombre": "NAT 6",
+            "fuentes": "Surround",
+            "audio": ["NAT_6_audio"],
+            "coordenadas": {
+                "lat": 10.276667,
+                "lng": -65.835
+            },
+            "hora": "13:03",
+            "imagen": "image_15",
+            "video": null,
+            "dia": "2025-10-26",
+            "type": "naturaleza"
+        },
+        {
+            "nombre": "AVES 2",
+            "fuentes": "Surround",
+            "audio": ["AVES_2_audio"],
+            "coordenadas": {
+                "lat": 10.293056,
+                "lng": -65.871111
+            },
+            "hora": "13:47",
+            "imagen": null,
+            "video": "video_16",
+            "dia": "2025-10-26",
+            "type": "aves"
+        },
+        {
+            "nombre": "AVES 3",
+            "fuentes": "Surround",
+            "audio": ["AVES_3_audio"],
+            "coordenadas": {
+                "lat": 10.295278,
+                "lng": -65.872222
+            },
+            "hora": "17:52",
+            "imagen": "image_17",
+            "video": null,
+            "dia": "2025-10-26",
+            "type": "aves"
+        },
+        {
+            "nombre": "TUNEL DEL AMOR",
+            "fuentes": "Surround",
+            "audio": ["TUNEL_DEL_AMOR_audio"],
+            "coordenadas": {
+                "lat": 10.281667,
+                "lng": -65.853333
+            },
+            "hora": "18:03",
+            "imagen": "image_18",
+            "video": null,
+            "dia": "2025-10-26",
+            "type": "naturaleza"
+        },
+        {
+            "nombre": "NAT 7",
+            "fuentes": "Surround",
+            "audio": ["NAT_7_audio"],
+            "coordenadas": {
+                "lat": 10.288333,
+                "lng": -65.865278
+            },
+            "hora": "18:13",
+            "imagen": null,
+            "video": null,
+            "dia": "2025-10-26",
+            "type": "naturaleza"
+        },
+        {
+            "nombre": "NAT 8",
+            "fuentes": "Surround",
+            "audio": ["NAT_8_audio"],
+            "coordenadas": {
+                "lat": 10.292778,
+                "lng": -65.869167
+            },
+            "hora": "18:20",
+            "imagen": null,
+            "video": "video_20",
+            "dia": "2025-10-26",
+            "type": "naturaleza"
+        }
+    ]
+}
