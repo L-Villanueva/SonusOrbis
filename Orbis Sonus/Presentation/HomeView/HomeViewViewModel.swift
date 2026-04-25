@@ -15,6 +15,7 @@ extension HomeView {
         @Published var registrosFiltered: [Registro] = []
         @Published var filterType: RegistroType? = nil
         @Published var filterQuery: String = ""
+        @Published var route: Router = .showMap
         
         let useCase = GetRegistrosUseCase()
         
@@ -47,6 +48,14 @@ extension HomeView {
             } else {
                 registrosFiltered = registros
             }
+        }
+        
+        enum Router {
+            case showInfo
+            case showGallery
+            case showList
+            case showMap
+            case showContact
         }
     }
 }

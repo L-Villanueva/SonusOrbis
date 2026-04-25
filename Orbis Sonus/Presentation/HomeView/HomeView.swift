@@ -11,32 +11,29 @@ import Combine
 struct HomeView: View {
     
     @StateObject var viewModel: ViewModel = ViewModel()
-    @State var index: Int = 0
     
     var body: some View {
         ZStack {
             NavigationStack {
                 Group {
-                    switch index {
-                    case 0:
+                    switch viewModel.route {
+                    case .showMap:
                         MapHomeView(registros: $viewModel.registrosFiltered, filter: $viewModel.filterType)
-                    case 1:
+                    case .showList:
                         ListHomeView(registros: $viewModel.registrosFiltered)
                             .searchable(text: $viewModel.filterQuery,
                                         placement: .automatic,
                                         prompt: "Search fruits...")
                             .adaptiveLogo()
-                    case 2:
+                    case .showGallery:
                         GalleryView()
                             .adaptiveLogo()
-                    case 3:
-                        ProjectDetailView()
+                    case .showInfo:
+                        ProjectInfoView()
                             .adaptiveLogo()
-                    case 4:
+                    case .showContact:
                         ContactView()
                             .adaptiveLogo()
-                    default:
-                        Text("\(index)")
                     }
                 }
                 .toolbar {
@@ -47,7 +44,7 @@ struct HomeView: View {
                     }
                 }
             }
-            SideNavView(isShowingSideNav: $viewModel.isShowingSideNav, index: $index)
+            SideNavView(isShowingSideNav: $viewModel.isShowingSideNav, route: $viewModel.route)
         }
         .task {
             await viewModel.load()

@@ -16,38 +16,41 @@ struct GalleryView: View {
     
     var body: some View {
         GeometryReader { geo in
-            ScrollView {
-                VStack(spacing: 20) {
-                    let itemHeight: CGFloat = 300
-                    let itemWidth: CGFloat = geo.size.width - 120
-                    // Visible carousel with side previews
-                    carousel(itemHeight, itemWidth)
-                    
-                    // Hidden TabView to show native page indicators
-                    hiddenTabView(index: $currentIndex)
-                    
-                    HStack {
-                        Spacer()
-                        VStack(spacing: 2) {
-                            Text("Fotografia por:")
-                                .font(.caption2)
-                                .padding(.bottom, 4)
-                            Text("Samuel Linares")
-                                .font(.caption2)
-                            Text("Daniel Landaeta")
-                                .font(.caption2)
+            ScrollViewReader { scrollProxy in
+                ScrollView {
+                    VStack(spacing: 20) {
+                        let itemHeight: CGFloat = 300
+                        let itemWidth: CGFloat = geo.size.width - 120
+
+                        carousel(itemHeight, itemWidth)
+                            .id("carouselTop")
+                        
+                        // Hidden TabView to show native page indicators
+                        hiddenTabView(index: $currentIndex)
+                        
+                        HStack {
+                            Spacer()
+                            VStack(spacing: 2) {
+                                Text("Fotografia por:")
+                                    .font(.caption2)
+                                    .padding(.bottom, 4)
+                                Text("Samuel Linares")
+                                    .font(.caption2)
+                                Text("Daniel Landaeta")
+                                    .font(.caption2)
+                            }
                         }
+                        .padding(.horizontal)
+                        
+                        gallery(scrollProxy: scrollProxy)
+                        Spacer()
                     }
-                    .padding(.horizontal)
-                    
-                    gallery()
-                    Spacer()
-                }
-                .sheet(isPresented: $showFull) {
-                    if let currentIndex {
-                        images[currentIndex % images.count]
-                            .resizable()
-                            .scaledToFit()
+                    .sheet(isPresented: $showFull) {
+                        if let currentIndex {
+                            images[currentIndex % images.count]
+                                .resizable()
+                                .scaledToFit()
+                        }
                     }
                 }
             }
@@ -67,7 +70,7 @@ struct GalleryView: View {
         .accessibilityHidden(true)
     }
     
-    private func gallery() -> some View {
+    private func gallery(scrollProxy: ScrollViewProxy) -> some View {
         
         let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 3)
         
@@ -78,6 +81,7 @@ struct GalleryView: View {
                     Button {
                         withAnimation {
                             currentIndex = index
+                            scrollProxy.scrollTo("carouselTop", anchor: .top)
                         }
                     } label: {
                         image

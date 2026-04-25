@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SideNavView: View {
     @Binding var isShowingSideNav: Bool
-    @Binding var index: Int
+    @Binding var route: HomeView.ViewModel.Router
     
     var body: some View {
         ZStack {
@@ -32,7 +32,7 @@ struct SideNavView: View {
                         // We are not concerned about performance here because this component should only hold a small amount of small views.
                         ScrollView {
                             // Side nav content goes here
-                            SideNavContent(isShowingSideNav: $isShowingSideNav, index: $index)
+                            SideNavContent(isShowingSideNav: $isShowingSideNav, route: $route)
                         }
                         .padding(.top, 80)
                         
@@ -62,33 +62,33 @@ struct SideNavView: View {
 // Place the content for your side nav in this view
 struct SideNavContent: View {
     @Binding var isShowingSideNav: Bool
-    @Binding var index: Int
+    @Binding var route: HomeView.ViewModel.Router
 
     // change the action in these buttons based on your desired behavior
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             Button("Home", systemImage: "house") {
                 isShowingSideNav.toggle()
-                index = 0
+                route = .showMap
             }
                         
             Button("List", systemImage: "list.bullet") {
                 isShowingSideNav.toggle()
-                index = 1
+                route = .showList
             }
             
             Button("Gallery", systemImage: "photo.on.rectangle") {
                 isShowingSideNav.toggle()
-                index = 2
+                route = .showGallery
             }
             
             Button("Info", systemImage: "person.3") {
                 isShowingSideNav.toggle()
-                index = 3
+                route = .showInfo
             }
             Button("Contact", systemImage: "person.3") {
                 isShowingSideNav.toggle()
-                index = 4
+                route = .showContact
             }
         }
     }

@@ -1,5 +1,5 @@
 //
-//  ProjectDetailView.swift
+//  ProjectInfoView.swift
 //  Orbis Sonus
 //
 //  Created by Luis Villanueva on 24/4/26.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ProjectDetailView: View {
+struct ProjectInfoView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
@@ -78,5 +78,5 @@ Lorem ipsum dolor sit amet consectetur. Blandit nulla venenatis nunc mattis at t
 """
 
 #Preview {
-    ProjectDetailView()
+    ProjectInfoView()
 }
