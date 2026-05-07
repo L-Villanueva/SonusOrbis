@@ -61,3 +61,4 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 /Orbis Sonus/Assets/Assets.xcassets/audios
+.DS_Store

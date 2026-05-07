@@ -72,9 +72,9 @@ struct GalleryView: View {
     
     private func gallery(scrollProxy: ScrollViewProxy) -> some View {
         
-        let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 3)
+        let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 3)
         
-        return LazyVGrid(columns: columns, spacing: 4) {
+        return LazyVGrid(columns: columns, spacing: 8) {
             ForEach(0..<images.count, id: \.self) { index in
                 let image = images[index]
                 GeometryReader { geo in
