@@ -14,7 +14,7 @@ struct AdaptiveLogoModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .toolbar {
-                ToolbarItem(placement: .title) {
+                ToolbarItem(placement: toolbarPlacement) {
                     Image(.navigationLogo)
                         .resizable()
                         .scaledToFit()
@@ -23,7 +23,17 @@ struct AdaptiveLogoModifier: ViewModifier {
                         .clipped()
                 }
             }
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
+    }
+    
+    private var toolbarPlacement: ToolbarItemPlacement {
+        #if os(macOS)
+        .principal
+        #else
+        .title
+        #endif
     }
     
     private var logoHeight: CGFloat {
@@ -44,7 +54,7 @@ extension View {
 
 struct GlassModifier: ViewModifier {
     func body(content: Content) -> some View {
-        if #available(iOS 26.0, *) {
+        if #available(iOS 26.0, macOS 26.0, *) {
             content
                 .glassEffect(.clear, in: Rectangle())
         } else {

@@ -58,16 +58,30 @@ struct GalleryView: View {
     }
     
     private func hiddenTabView(index: Binding<Int?>) -> some View {
-        TabView(selection: index) {
-            ForEach(0..<images.count, id: \.self) { index in
-                Color.clear.tag(index)
+        Group {
+            #if os(macOS)
+            HStack(spacing: 8) {
+                ForEach(0..<images.count, id: \.self) { dotIndex in
+                    Circle()
+                        .fill((currentIndex ?? 0) == dotIndex ? Color.primary : Color.secondary.opacity(0.4))
+                        .frame(width: 6, height: 6)
+                }
             }
+            .frame(maxWidth: .infinity)
+            .padding(.top, 8)
+            #else
+            TabView(selection: index) {
+                ForEach(0..<images.count, id: \.self) { index in
+                    Color.clear.tag(index)
+                }
+            }
+            .tabViewStyle(PageTabViewStyle())
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+            .frame(height: 0)
+            .padding(.top)
+            .accessibilityHidden(true)
+            #endif
         }
-        .tabViewStyle(PageTabViewStyle())
-        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-        .frame(height: 0)
-        .padding(.top)
-        .accessibilityHidden(true)
     }
     
     private func gallery(scrollProxy: ScrollViewProxy) -> some View {
@@ -101,41 +115,69 @@ struct GalleryView: View {
     private func carousel(_ itemHeight: CGFloat, _ itemWidth: CGFloat) -> some View {
         GeometryReader { proxy in
             let inset = max((proxy.size.width - itemWidth) / 2, 0)
-            
-            ScrollView(.horizontal) {
-                HStack(spacing: 4) {
-                    ForEach(0..<images.count, id: \.self) { index in
-                        let image = images[index]
-                        Button {
-                            if index == currentIndex {
-                                withAnimation(.default) {
-                                    showFull = true
+            Group {
+                if #available(iOS 17.0, macOS 14.0, *) {
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 4) {
+                            ForEach(0..<images.count, id: \.self) { index in
+                                let image = images[index]
+                                Button {
+                                    if index == currentIndex {
+                                        withAnimation(.default) {
+                                            showFull = true
+                                        }
+                                    } else {
+                                        withAnimation(.easeInOut) {
+                                            currentIndex = index
+                                        }
+                                    }
+                                } label: {
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: itemWidth, height: itemHeight)
+                                        .clipped()
+                                        .cornerRadius(16)
+                                        .shadow(radius: 4, y: 4)
+                                        .scaleEffect(index == currentIndex ? 1.0 : 0.8)
+                                        .animation(.easeInOut(duration: 0.25), value: currentIndex)
                                 }
-                            } else {
-                                withAnimation(.easeInOut) {
-                                    currentIndex = index
-                                }
+                                .id(index)
                             }
-                        } label: {
-                            image
+                        }
+                        .scrollTargetLayout()
+                    }
+                    .contentMargins(inset, for: .scrollContent)
+                    .scrollTargetBehavior(.viewAligned)
+                    .scrollPosition(id: $currentIndex, anchor: .center)
+                } else {
+                    TabView(selection: Binding(
+                        get: { currentIndex ?? 0 },
+                        set: { currentIndex = $0 }
+                    )) {
+                        ForEach(0..<images.count, id: \.self) { index in
+                            images[index]
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: itemWidth, height: itemHeight)
                                 .clipped()
                                 .cornerRadius(16)
                                 .shadow(radius: 4, y: 4)
-                                .scaleEffect(index == currentIndex ? 1.0 : 0.8)
+                                .scaleEffect(index == currentIndex ? 1.0 : 0.95)
                                 .animation(.easeInOut(duration: 0.25), value: currentIndex)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    showFull = true
+                                }
+                                .tag(index)
                         }
-                        .id(index)
                     }
+                    #if !os(macOS)
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    #endif
                 }
-                .scrollTargetLayout()
             }
-            .contentMargins(inset, for: .scrollContent)
-            .scrollTargetBehavior(.viewAligned)
             .frame(height: itemHeight)
-            .scrollPosition(id: $currentIndex, anchor: .center)
             .scrollIndicators(.hidden)
         }
         .frame(height: itemHeight)

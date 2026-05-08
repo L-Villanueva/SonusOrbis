@@ -8,6 +8,11 @@
 import SwiftUI
 import MapKit
 import AVKit
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
 
 struct RegistroDetailView: View {
     let registro: Registro
@@ -55,15 +60,17 @@ struct RegistroDetailView: View {
         .background(
             LinearGradient(
                 colors: [
-                    Color(.systemBackground),
-                    Color(.secondarySystemBackground)
+                    .appSystemBackground,
+                    .appSecondarySystemBackground
                 ],
                 startPoint: .top,
                 endPoint: .bottom
             )
             .ignoresSafeArea()
         )
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .onAppear {
             if let location = registro.location {
                 cameraPosition = .region(
@@ -135,7 +142,7 @@ struct RegistroDetailView: View {
             }
         }
         .padding(20)
-        .background(Color(.secondarySystemBackground))
+        .background(Color.appSecondarySystemBackground)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
     }
     
@@ -153,7 +160,7 @@ struct RegistroDetailView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
         }
         .padding(20)
-        .background(Color(.secondarySystemBackground))
+        .background(Color.appSecondarySystemBackground)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
     }
     
@@ -174,7 +181,7 @@ struct RegistroDetailView: View {
                 .foregroundStyle(.secondary)
         }
         .padding(20)
-        .background(Color(.secondarySystemBackground))
+        .background(Color.appSecondarySystemBackground)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
     }
     
@@ -190,7 +197,7 @@ struct RegistroDetailView: View {
             content()
         }
         .padding(20)
-        .background(Color(.secondarySystemBackground))
+        .background(Color.appSecondarySystemBackground)
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
     }
     
@@ -223,7 +230,7 @@ struct RegistroDetailView: View {
         .font(.subheadline.weight(.medium))
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(Color(.tertiarySystemBackground))
+        .background(Color.appTertiarySystemBackground)
         .clipShape(Capsule())
     }
 }
@@ -257,7 +264,7 @@ struct VideoPlayerView: View {
         } else {
             ZStack {
                 RoundedRectangle(cornerRadius: 18)
-                    .fill(Color(.tertiarySystemBackground))
+                    .fill(Color.appTertiarySystemBackground)
                 
                 VStack(spacing: 8) {
                     Image(systemName: "video.slash")
@@ -279,5 +286,31 @@ struct VideoPlayerView: View {
             print("Error escribiendo archivo temporal: \(error)")
             return nil
         }
+    }
+}
+
+private extension Color {
+    static var appSystemBackground: Color {
+        #if os(macOS)
+        Color(nsColor: .windowBackgroundColor)
+        #else
+        Color(uiColor: .systemBackground)
+        #endif
+    }
+    
+    static var appSecondarySystemBackground: Color {
+        #if os(macOS)
+        Color(nsColor: .controlBackgroundColor)
+        #else
+        Color(uiColor: .secondarySystemBackground)
+        #endif
+    }
+    
+    static var appTertiarySystemBackground: Color {
+        #if os(macOS)
+        Color(nsColor: .underPageBackgroundColor)
+        #else
+        Color(uiColor: .tertiarySystemBackground)
+        #endif
     }
 }
