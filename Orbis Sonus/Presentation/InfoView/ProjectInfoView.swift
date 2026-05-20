@@ -7,11 +7,6 @@
 
 
 import SwiftUI
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
 
 struct ProjectInfoView: View {
     var body: some View {
@@ -58,49 +53,23 @@ struct ProjectInfoView: View {
             .padding(.horizontal, 36)
             .padding(.bottom, 40)
         }
-        .background(Color.appSystemBackground)
+        .background(Color.white)
     }
 }
 
 private struct ImagePlaceholder: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 8)
-            .fill(Color.appSystemGray6)
+            .fill(Color(.systemGray6))
             .overlay {
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.appSystemGray3, lineWidth: 2)
+                    .stroke(Color(.systemGray3), lineWidth: 2)
             }
             .overlay {
                 Image(systemName: "photo")
                     .font(.system(size: 24))
-                    .foregroundStyle(Color.appSystemGray3)
+                    .foregroundStyle(Color(.systemGray3))
             }
-    }
-}
-
-private extension Color {
-    static var appSystemBackground: Color {
-        #if os(macOS)
-        Color(nsColor: .windowBackgroundColor)
-        #else
-        Color(uiColor: .systemBackground)
-        #endif
-    }
-    
-    static var appSystemGray3: Color {
-        #if os(macOS)
-        Color(nsColor: .tertiaryLabelColor)
-        #else
-        Color(uiColor: .systemGray3)
-        #endif
-    }
-    
-    static var appSystemGray6: Color {
-        #if os(macOS)
-        Color(nsColor: .controlBackgroundColor)
-        #else
-        Color(uiColor: .systemGray6)
-        #endif
     }
 }
 

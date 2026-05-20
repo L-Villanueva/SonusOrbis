@@ -37,7 +37,7 @@ struct HomeView: View {
                     }
                 }
                 .toolbar {
-                    ToolbarItem(placement: toolbarPlacement) {
+                    ToolbarItem(placement: .topBarLeading) {
                         Button("", systemImage: "gear") {
                             viewModel.toggleSideNav()
                         }
@@ -55,14 +55,6 @@ struct HomeView: View {
         .onChange(of: viewModel.filterQuery) {
             viewModel.filterByQuery()
         }
-    }
-    
-    private var toolbarPlacement: ToolbarItemPlacement {
-        #if os(macOS)
-        .navigation
-        #else
-        .topBarLeading
-        #endif
     }
 }
 

@@ -14,22 +14,6 @@ struct ListHomeView: View {
     @Binding var registros: [Registro]
     
     var body: some View {
-#if os(macOS)
-        List(selection: $selectedItem) {
-            ForEach(registros) { registro in
-                VStack(alignment: .leading) {
-                    Text(registro.name)
-                        .font(.headline)
-                    Text(registro.sources)
-                }
-                .padding(.vertical, 4)
-                .tag(registro) // Make this row selectable
-            }
-        }
-        .popover(item: $selectedItem) { item in
-            RegistroDetailView(registro: item)
-        }
-#else
         List(registros, id: \.self) { registro in
             Button {
                 selectedItem = registro
@@ -40,10 +24,9 @@ struct ListHomeView: View {
                 }
             }
         }
-        .popover(item: $selectedItem, attachmentAnchor: .point(UnitPoint(x: 0.5, y: 0.5))) { item in
+        .sheet(item: $selectedItem) { item in
             RegistroDetailView(registro: item)
         }
-#endif
     }
 }
 

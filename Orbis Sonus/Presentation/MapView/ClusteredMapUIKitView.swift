@@ -4,7 +4,7 @@
 //
 //  Created by Luis Villanueva on 6/4/26.
 //
-#if os(iOS)
+
 import SwiftUI
 import UIKit
 import MapKit
@@ -27,12 +27,13 @@ struct ClusteredMapUIKitView: UIViewRepresentable {
     }
     func updateUIView(_ map: MKMapView, context: Context) {
         
+        // 👇 CAMBIO DE ESTILO
         map.mapType = mapStyleSatellite ? .hybridFlyover : .standard
         
         map.removeAnnotations(map.annotations)
         
         let annotations = registros.compactMap { place -> CustomAnnotation? in
-            guard let _ = place.location else { return nil }
+            guard let location = place.location else { return nil }
             return CustomAnnotation(place: place)
         }
         
@@ -53,7 +54,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
     
     var parent: ClusteredMapUIKitView
     var selectedPlaceBinding: Binding<Registro?>
-    var hasCentered = false
+    var hasCentered = false   // 👈 clave
     
     init(_ parent: ClusteredMapUIKitView, selectedPlace: Binding<Registro?>) {
         self.parent = parent
@@ -68,6 +69,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
         
         if let cluster = annotation as? MKClusterAnnotation {
             let view = MKMarkerAnnotationView(annotation: cluster, reuseIdentifier: "cluster")
@@ -85,6 +87,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
             view.image = resizedImage(resource: icon, targetSize: CGSize(width: 40, height: 40))
         }
         
+        // 👇 clave para que “pinche” bien en el mapa
         view.centerOffset = CGPoint(x: 0, y: -20)
         view.canShowCallout = true
         
@@ -115,7 +118,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
             let widthRatio = targetSize.width / imageSize.width
             let heightRatio = targetSize.height / imageSize.height
             
-            let scaleFactor = min(widthRatio, heightRatio) 
+            let scaleFactor = min(widthRatio, heightRatio) // 👈 clave
             
             let scaledSize = CGSize(
                 width: imageSize.width * scaleFactor,
@@ -143,4 +146,3 @@ class CustomAnnotation: NSObject, MKAnnotation {
         self.title = place.name
     }
 }
-#endif
