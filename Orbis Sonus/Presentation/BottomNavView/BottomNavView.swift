@@ -10,7 +10,6 @@ import SwiftUI
 struct BottomNavView: View {
     
     @State var isShowingFilters: Bool = false
-    @Binding var opacity: Double
     @Binding var mapStyleSatellite: Bool
     @Binding var filter: RegistroType?
     
@@ -52,7 +51,7 @@ struct BottomNavView: View {
                 }
                 
                 HStack {
-                    BottomNavContent(isShowingFilters: $isShowingFilters, barValue: $opacity, stateButton: $mapStyleSatellite)
+                    BottomNavContent(isShowingFilters: $isShowingFilters, stateButton: $mapStyleSatellite)
                     
                 }
                 .frame(height: 60)
@@ -84,7 +83,6 @@ struct BottomNavView: View {
 
 struct BottomNavContent: View {
     @Binding var isShowingFilters: Bool
-    @Binding var barValue: Double
     @Binding var stateButton: Bool
     // change the action in these buttons based on your desired behavior
     var body: some View {
@@ -98,9 +96,7 @@ struct BottomNavContent: View {
             }
                         
             Spacer()
-            
-            Slider(value: $barValue, in: 0...0.5)
-                .frame(width: 160)
+
             
         }
     }

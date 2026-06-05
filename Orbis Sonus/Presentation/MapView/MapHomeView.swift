@@ -11,16 +11,13 @@ struct MapHomeView: View {
     
     @Binding var registros: [Registro]
     @Binding var filter: RegistroType?
-    @State private var opacity: Double = 0
     @State private var mapStyleSatellite: Bool = false
     var body: some View {
         ZStack {
             MapView(registros: $registros,
-                    opacity: $opacity,
                     mapStyleSatellite: $mapStyleSatellite)
             
-            BottomNavView(opacity: $opacity,
-                          mapStyleSatellite: $mapStyleSatellite,
+            BottomNavView(mapStyleSatellite: $mapStyleSatellite,
                           filter: $filter)
                 
             
