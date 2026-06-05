@@ -164,7 +164,7 @@ struct RegistroDetailView: View {
                 Marker(registro.name, coordinate: location)
             }
             .mapStyle(.hybrid)
-            .mapInteractionModes([])
+            .allowsHitTesting(false)
             .frame(height: 260)
             .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
             
@@ -240,3 +240,4 @@ struct AudioPlayerRow: View {
         .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
 }
+
