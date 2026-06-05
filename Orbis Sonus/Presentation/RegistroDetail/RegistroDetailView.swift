@@ -164,6 +164,7 @@ struct RegistroDetailView: View {
                 Marker(registro.name, coordinate: location)
             }
             .mapStyle(.hybrid)
+            .mapInteractionModes([])
             .frame(height: 260)
             .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
             
