@@ -40,7 +40,7 @@ struct RegistroDetailView: View {
                         title: "Vídeo",
                         icon: "play.rectangle.fill"
                     ) {
-                        VideoPlayerView(videoName: videoName)
+                        VideoPlayerView(assetName: videoName)
                             .frame(height: 220)
                             .clipShape(RoundedRectangle(cornerRadius: 18))
                     }
@@ -239,45 +239,5 @@ struct AudioPlayerRow: View {
         .padding(16)
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-    }
-}
-
-struct VideoPlayerView: View {
-    let url: URL?
-    init(videoName: String) {
-        if let dataAsset = NSDataAsset(name: videoName) {
-            self.url = VideoPlayerView.writeToTemporaryFile(data: dataAsset.data, suggestedName: "\(videoName).mp4")
-        } else {
-            self.url = nil
-        }
-    }
-    var body: some View {
-        if let url = url {
-            VideoPlayer(player: AVPlayer(url: url))
-        } else {
-            ZStack {
-                RoundedRectangle(cornerRadius: 18)
-                    .fill(Color(.tertiarySystemBackground))
-                
-                VStack(spacing: 8) {
-                    Image(systemName: "video.slash")
-                        .font(.largeTitle)
-                        .foregroundStyle(.secondary)
-                    Text("No se encontró el vídeo")
-                        .foregroundStyle(.secondary)
-                }
-            }
-        }
-    }
-    private static func writeToTemporaryFile(data: Data, suggestedName: String) -> URL? {
-        let tempDir = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-        let fileURL = tempDir.appendingPathComponent(suggestedName)
-        do {
-            try data.write(to: fileURL, options: .atomic)
-            return fileURL
-        } catch {
-            print("Error escribiendo archivo temporal: \(error)")
-            return nil
-        }
     }
 }

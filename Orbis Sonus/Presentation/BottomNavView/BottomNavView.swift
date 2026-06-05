@@ -89,11 +89,11 @@ struct BottomNavContent: View {
     // change the action in these buttons based on your desired behavior
     var body: some View {
         HStack(spacing: 24) {
-            Button("", systemImage: "house") {
+            Button("", systemImage: isShowingFilters ? "eye.fill" : "eye") {
                 isShowingFilters.toggle()
             }
             
-            Button("", systemImage: "house") {
+            Button("", systemImage: stateButton ? "map.fill" : "map") {
                 stateButton.toggle()
             }
                         

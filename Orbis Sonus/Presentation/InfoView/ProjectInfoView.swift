@@ -21,7 +21,7 @@ struct ProjectInfoView: View {
                     .font(.title3)
                     .padding(.top, 28)
 
-                Text(lorem)
+                Text(firstText)
                     .font(.body)
                     .padding(.top, 28)
 
@@ -72,6 +72,12 @@ private struct ImagePlaceholder: View {
             }
     }
 }
+
+private let firstText = """
+Este proyecto consiste en la creación de un mapa sonoro interactivo de la Laguna de Tacarigua, orientado a documentar y preservar los paisajes acústicos característicos del Parque Nacional. A través de grabaciones de campo geolocalizadas, se registran sonidos naturales como aves, agua, viento y fauna propia del ecosistema, generando un archivo sonoro de alto valor ambiental y cultural.
+
+Además de su aplicación educativa y multimedia, la iniciativa representa una herramienta útil para el monitoreo ambiental, ya que permite comparar cambios en el entorno sonoro a lo largo del tiempo, aportando información relevante sobre el estado ecológico del parque y la conservación de su biodiversidad.
+"""
 
 private let lorem = """
 Lorem ipsum dolor sit amet consectetur. Blandit nulla venenatis nunc mattis at tristique etiam vestibulum. Orci adipiscing ultrices enim egestas eget porttitor. Vulputate egestas eros semper at sagittis. Sed accumsan mauris purus accumsan phasellus maecenas cras. Convallis cursus posuere nunc eget ac lacus eu senectus duis. Arcu facilisis netus arcu consequat in lobortis nisl. Vel feugiat in nec a non sollicitudin sit magnis lectus. Aliquet tellus phasellus et fringilla arcu semper. Pulvinar ut porta fermentum ipsum orci imperdiet.

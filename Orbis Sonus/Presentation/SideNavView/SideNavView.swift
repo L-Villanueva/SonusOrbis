@@ -82,7 +82,7 @@ struct SideNavContent: View {
                 route = .showGallery
             }
             
-            Button("Info", systemImage: "person.3") {
+            Button("Info", systemImage: "info.circle") {
                 isShowingSideNav.toggle()
                 route = .showInfo
             }

@@ -103,8 +103,8 @@
             "fuentes": "Stereo Binaural",
             "audio": ["NAT_2_audio"],
             "coordenadas": {
-                "lat": 10.314167,
-                "lng": -65.886111
+                "lat": 10.299722,
+                "lng": -65.883055
             },
             "hora": "17:10",
             "imagen": null,
@@ -122,7 +122,7 @@
             },
             "hora": "17:20",
             "imagen": null,
-            "video": "video_9",
+            "video": "video_10",
             "dia": "2025-10-04",
             "type": "naturaleza"
         },
@@ -136,7 +136,7 @@
             },
             "hora": "17:46",
             "imagen": null,
-            "video": "video_10",
+            "video": "video_11",
             "dia": "2025-10-04",
             "type": "aves"
         },
@@ -215,7 +215,7 @@
             "fuentes": "Surround",
             "audio": ["AVES_3_audio"],
             "coordenadas": {
-                "lat": 10.295278,
+                "lat": 10.295378,
                 "lng": -65.872222
             },
             "hora": "17:52",
@@ -257,8 +257,8 @@
             "fuentes": "Surround",
             "audio": ["NAT_8_audio"],
             "coordenadas": {
-                "lat": 10.292778,
-                "lng": -65.869167
+                "lat": 10.300961,
+                "lng": -65.864461
             },
             "hora": "18:20",
             "imagen": null,

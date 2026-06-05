@@ -7,7 +7,7 @@
 import SwiftUI
 import AVKit
 
-struct VideoPlayerFromAssetView: View {
+struct VideoPlayerView: View {
     let assetName: String // p.ej. "video_9"
     @State private var player: AVPlayer?
 
@@ -15,7 +15,6 @@ struct VideoPlayerFromAssetView: View {
         Group {
             if let player = player {
                 VideoPlayer(player: player)
-                    .onAppear { player.play() }
                     .onDisappear { player.pause() }
             } else {
                 Text("Cargando video…")
