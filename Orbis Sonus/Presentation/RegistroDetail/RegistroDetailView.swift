@@ -41,8 +41,6 @@ struct RegistroDetailView: View {
                         icon: "play.rectangle.fill"
                     ) {
                         VideoPlayerView(assetName: videoName)
-                            .frame(height: 220)
-                            .clipShape(RoundedRectangle(cornerRadius: 18))
                     }
                 }
                 
