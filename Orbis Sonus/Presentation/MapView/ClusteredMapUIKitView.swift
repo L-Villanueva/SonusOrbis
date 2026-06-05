@@ -33,7 +33,7 @@ struct ClusteredMapUIKitView: UIViewRepresentable {
         map.removeAnnotations(map.annotations)
         
         let annotations = registros.compactMap { place -> CustomAnnotation? in
-            guard let location = place.location else { return nil }
+            guard let _ = place.location else { return nil }
             return CustomAnnotation(place: place)
         }
         
@@ -54,7 +54,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
     
     var parent: ClusteredMapUIKitView
     var selectedPlaceBinding: Binding<Registro?>
-    var hasCentered = false   // 👈 clave
+    var hasCentered = false
     
     init(_ parent: ClusteredMapUIKitView, selectedPlace: Binding<Registro?>) {
         self.parent = parent
@@ -75,6 +75,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
             let view = MKMarkerAnnotationView(annotation: cluster, reuseIdentifier: "cluster")
             view.markerTintColor = .systemBlue
             view.glyphText = "\(cluster.memberAnnotations.count)"
+            view.sizeThatFits(CGSize(width: 60, height: 60))
             return view
         }
         
@@ -84,11 +85,10 @@ class Coordinator: NSObject, MKMapViewDelegate {
         view.clusteringIdentifier = "cluster"
         
         if let icon = annotation.place.type.icon {
-            view.image = resizedImage(resource: icon, targetSize: CGSize(width: 40, height: 40))
+            view.image = resizedImage(resource: icon, targetSize: CGSize(width: 50, height: 50))
         }
         
-        // 👇 clave para que “pinche” bien en el mapa
-        view.centerOffset = CGPoint(x: 0, y: -20)
+        view.centerOffset = CGPoint(x: 0, y: -25)
         view.canShowCallout = true
         
         let button = UIButton(type: .detailDisclosure)
@@ -118,7 +118,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
             let widthRatio = targetSize.width / imageSize.width
             let heightRatio = targetSize.height / imageSize.height
             
-            let scaleFactor = min(widthRatio, heightRatio) // 👈 clave
+            let scaleFactor = min(widthRatio, heightRatio)
             
             let scaledSize = CGSize(
                 width: imageSize.width * scaleFactor,
