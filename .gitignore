@@ -62,3 +62,6 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 /Orbis Sonus/Assets/Assets.xcassets/audios
 .DS_Store
+/.derivedData
+.DS_Store
+.DS_Store
