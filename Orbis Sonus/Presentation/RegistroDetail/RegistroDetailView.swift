@@ -12,6 +12,7 @@ import AVKit
 struct RegistroDetailView: View {
     let registro: Registro
     
+    @EnvironmentObject private var audioPlayerManager: AudioPlayerManager
     @State private var cameraPosition: MapCameraPosition = .automatic
     
     var body: some View {
@@ -31,7 +32,7 @@ struct RegistroDetailView: View {
                         title: "Audio",
                         icon: "waveform"
                     ) {
-                        AudioPlayerRow(audioName: registro.audio[0])
+                        audioSelectorSection
                     }
                 }
                 
@@ -125,11 +126,13 @@ struct RegistroDetailView: View {
                     )
                 }
                 
-                detailRow(
-                    title: "Audio",
-                    value: registro.audio[0],
-                    icon: "waveform"
-                )
+                if !registro.audio.isEmpty {
+                    detailRow(
+                        title: "Audio",
+                        value: registro.audio.joined(separator: ", "),
+                        icon: "waveform"
+                    )
+                }
             }
         }
         .padding(20)
@@ -155,6 +158,49 @@ struct RegistroDetailView: View {
         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
     }
     
+    private var audioSelectorSection: some View {
+        VStack(spacing: 12) {
+            ForEach(registro.audio, id: \.self) { trackName in
+                audioTrackRow(trackName: trackName)
+            }
+        }
+    }
+
+    private func audioTrackRow(trackName: String) -> some View {
+        let isCurrentTrack = audioPlayerManager.currentTrackName == trackName
+
+        var stringTitle: String {
+            return if isCurrentTrack {
+                audioPlayerManager.isPlaying ? "Reproduciendo" : "Pausado"
+            } else {
+                "Reproducir"
+            }
+        }
+        return HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text(trackName)
+                        .font(.body)
+                        .foregroundStyle(.primary)
+                    
+                    
+                    Spacer()
+                }
+            }
+
+            Button {
+                audioPlayerManager.loadAndPlay(trackName: trackName, registroName: registro.name)
+            } label: {
+                Label(stringTitle, systemImage: isCurrentTrack ? "speaker.wave.2.fill" : "play.circle.fill")
+                    .font(.caption.weight(.light))
+            }
+            .buttonStyle(.borderedProminent)
+        }
+        .padding(16)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+    }
+
     private func locationSection(location: CLLocationCoordinate2D) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Ubicación")
@@ -224,20 +270,6 @@ struct RegistroDetailView: View {
         .padding(.vertical, 8)
         .background(Color(.tertiarySystemBackground))
         .clipShape(Capsule())
-    }
-}
-
-struct AudioPlayerRow: View {
-    let audioName: String
-    
-    var body: some View {
-        
-        HStack(spacing: 12) {
-            AudioPlayerView(audio: audioName)
-        }
-        .padding(16)
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
 }
 

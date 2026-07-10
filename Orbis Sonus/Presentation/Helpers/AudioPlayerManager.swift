@@ -15,23 +15,37 @@ final class AudioPlayerManager: ObservableObject {
     @Published var isPlaying = false
     @Published var currentTime: Double = 0
     @Published var duration: Double = 1
+    @Published var currentTrackName: String?
+    @Published var currentRegistroName: String?
+
+    var hasActiveTrack: Bool {
+        currentTrackName != nil
+    }
 
     private var player: AVPlayer?
     private var timeObserver: Any?
 
-    func loadAudio(named fileName: String) {
-        
-        guard let dataAsset = NSDataAsset(name: fileName),
-              let tempURL = writeToTemporaryFile(data: dataAsset.data, suggestedName: "\(fileName).flac")
+    func loadAndPlay(trackName: String, registroName: String) {
+        removeTimeObserver()
+        player?.pause()
+        player = nil
+
+        guard let dataAsset = NSDataAsset(name: trackName),
+              let tempURL = writeToTemporaryFile(data: dataAsset.data, suggestedName: "\(trackName).flac")
         else { return }
 
         let asset = AVAsset(url: tempURL)
         let item = AVPlayerItem(asset: asset)
 
         player = AVPlayer(playerItem: item)
+        currentTrackName = trackName
+        currentRegistroName = registroName
+        currentTime = 0
+        duration = 1
 
         configureAudioSession()
         observeTime()
+        play()
     }
 
     func play() {
@@ -45,9 +59,7 @@ final class AudioPlayerManager: ObservableObject {
     }
 
     func stop() {
-        player?.pause()
-        player?.seek(to: .zero)
-        isPlaying = false
+        clear()
     }
 
     func seek(to seconds: Double) {
@@ -55,15 +67,25 @@ final class AudioPlayerManager: ObservableObject {
         player?.seek(to: time)
     }
 
-    private func observeTime() {
+    func clear() {
+        removeTimeObserver()
+        player?.pause()
+        player?.seek(to: .zero)
+        player = nil
+        isPlaying = false
+        currentTime = 0
+        duration = 1
+        currentTrackName = nil
+        currentRegistroName = nil
+    }
 
+    private func observeTime() {
         guard let player else { return }
 
         timeObserver = player.addPeriodicTimeObserver(
             forInterval: CMTime(seconds: 0.5, preferredTimescale: 600),
             queue: .main
         ) { [weak self] time in
-
             self?.currentTime = time.seconds
 
             if let duration = player.currentItem?.duration.seconds,
@@ -73,8 +95,14 @@ final class AudioPlayerManager: ObservableObject {
         }
     }
 
-    private func configureAudioSession() {
+    private func removeTimeObserver() {
+        if let observer = timeObserver {
+            player?.removeTimeObserver(observer)
+            timeObserver = nil
+        }
+    }
 
+    private func configureAudioSession() {
         do {
             try AVAudioSession.sharedInstance().setCategory(
                 .playback,
@@ -88,7 +116,7 @@ final class AudioPlayerManager: ObservableObject {
             print("Audio session error: \(error)")
         }
     }
-    
+
     private func writeToTemporaryFile(data: Data, suggestedName: String) -> URL? {
         let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(suggestedName)
         if FileManager.default.fileExists(atPath: tempURL.path) {
@@ -109,8 +137,6 @@ final class AudioPlayerManager: ObservableObject {
     }
 
     deinit {
-        if let observer = timeObserver {
-            player?.removeTimeObserver(observer)
-        }
+        removeTimeObserver()
     }
 }

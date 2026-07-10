@@ -11,37 +11,46 @@ import Combine
 struct HomeView: View {
     
     @StateObject var viewModel: ViewModel = ViewModel()
-    
+    @StateObject private var audioPlayerManager = AudioPlayerManager()
+    @State private var mapStyleSatellite: Bool = false
+
     var body: some View {
         ZStack {
             NavigationStack {
-                Group {
-                    switch viewModel.route {
-                    case .showMap:
-                        MapHomeView(registros: $viewModel.registrosFiltered, filter: $viewModel.filterType)
-                    case .showList:
-                        ListHomeView(registros: $viewModel.registrosFiltered)
-                            .searchable(text: $viewModel.filterQuery,
-                                        placement: .automatic,
-                                        prompt: "Search fruits...")
-                            .adaptiveLogo()
-                    case .showGallery:
-                        GalleryView()
-                            .adaptiveLogo()
-                    case .showInfo:
-                        ProjectInfoView()
-                            .adaptiveLogo()
-                    case .showContact:
-                        ContactView()
-                            .adaptiveLogo()
-                    }
-                }
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button("", systemImage: "gear") {
-                            viewModel.toggleSideNav()
+                ZStack {
+                    Group {
+                        switch viewModel.route {
+                        case .showMap:
+                            MapHomeView(registros: $viewModel.registrosFiltered, filter: $viewModel.filterType, mapStyleSatellite: $mapStyleSatellite)
+                        case .showList:
+                            ListHomeView(registros: $viewModel.registrosFiltered,
+                                         filterQuery: $viewModel.filterQuery)
+                                .adaptiveLogo()
+                        case .showGallery:
+                            GalleryView()
+                                .adaptiveLogo()
+                        case .showInfo:
+                            ProjectInfoView()
+                                .adaptiveLogo()
+                        case .showContact:
+                            ContactView()
+                                .adaptiveLogo()
                         }
                     }
+                    .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button("", systemImage: "gear") {
+                                viewModel.toggleSideNav()
+                            }
+                        }
+                    }
+
+                    if viewModel.route == .showMap || (viewModel.route == .showList && audioPlayerManager.hasActiveTrack) {
+                        BottomNavView(mapStyleSatellite: $mapStyleSatellite,
+                                      filter: $viewModel.filterType,
+                                      showsMapControls: viewModel.route == .showMap)
+                    }
+                    
                 }
             }
             SideNavView(isShowingSideNav: $viewModel.isShowingSideNav, route: $viewModel.route)
@@ -55,6 +64,7 @@ struct HomeView: View {
         .onChange(of: viewModel.filterQuery) {
             viewModel.filterByQuery()
         }
+        .environmentObject(audioPlayerManager)
     }
 }
 

@@ -125,6 +125,7 @@ private struct FullscreenVideoPlayer: View {
                     .foregroundStyle(.white, .black.opacity(0.45))
             }
             .padding()
+            .padding(.vertical, 24)
             .accessibilityLabel("Cerrar pantalla completa")
         }
         .statusBarHidden()

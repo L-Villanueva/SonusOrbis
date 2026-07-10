@@ -79,7 +79,7 @@
                 "lng": -65.876944
             },
             "hora": "14:00",
-            "imagen": "image_7",
+            "imagen": null,
             "video": null,
             "dia": "2025-10-04",
             "type": "playa"
@@ -93,7 +93,7 @@
                 "lng": -65.874444
             },
             "hora": "14:10",
-            "imagen": "image_8",
+            "imagen": null,
             "video": null,
             "dia": "2025-10-04",
             "type": "playa"
