@@ -143,14 +143,11 @@ struct GalleryView: View {
     
     private enum GalleryAsset: String, CaseIterable {
         case rcWeb2  = "RC WEB-2"
-        case rcWeb3  = "RC WEB-3"
         case rcWeb4  = "RC WEB-4"
         case rcWeb15 = "RC WEB-15"
         case rcWeb16 = "RC WEB-16"
         case rcWeb18 = "RC WEB-18"
         case rcWeb20 = "RC WEB-20"
-        case rcWeb27 = "RC WEB-27"
-        case rcWeb35 = "RC WEB-35"
         case rcWeb41 = "RC WEB-41"
         case rcWeb48 = "RC WEB-48"
         case rcWeb50 = "RC WEB-50"
