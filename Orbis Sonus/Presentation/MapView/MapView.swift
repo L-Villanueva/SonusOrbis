@@ -11,6 +11,7 @@ struct MapView: View {
     
     @Binding var registros: [Registro]
     @Binding var mapStyleSatellite: Bool
+    @EnvironmentObject private var audioPlayerManager: AudioPlayerManager
     @State private var selectedPlace: Registro?
         
     var body: some View {
@@ -24,6 +25,7 @@ struct MapView: View {
         }
         .sheet(item: $selectedPlace) { selectedPlace in
             RegistroDetailView(registro: selectedPlace)
+                .environmentObject(audioPlayerManager)
         }
     }
     

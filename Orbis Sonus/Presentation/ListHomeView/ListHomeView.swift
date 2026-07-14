@@ -13,6 +13,7 @@ struct ListHomeView: View {
     @State private var selectedItem: Registro?
     @Binding var registros: [Registro]
     @Binding var filterQuery: String
+    @EnvironmentObject private var audioPlayerManager: AudioPlayerManager
     
     var body: some View {
         VStack(spacing: 0) {
@@ -53,6 +54,7 @@ struct ListHomeView: View {
         }
         .sheet(item: $selectedItem) { item in
             RegistroDetailView(registro: item)
+                .environmentObject(audioPlayerManager)
         }
     }
 }

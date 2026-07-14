@@ -103,6 +103,11 @@ final class AudioPlayerManager: ObservableObject {
     }
 
     private func configureAudioSession() {
+        #if os(iOS)
+        if isRunningOnMac {
+            return
+        }
+
         do {
             try AVAudioSession.sharedInstance().setCategory(
                 .playback,
@@ -115,6 +120,15 @@ final class AudioPlayerManager: ObservableObject {
         } catch {
             print("Audio session error: \(error)")
         }
+        #endif
+    }
+
+    private var isRunningOnMac: Bool {
+        if #available(iOS 14.0, *) {
+            return ProcessInfo.processInfo.isiOSAppOnMac || ProcessInfo.processInfo.isMacCatalystApp
+        }
+
+        return false
     }
 
     private func writeToTemporaryFile(data: Data, suggestedName: String) -> URL? {
