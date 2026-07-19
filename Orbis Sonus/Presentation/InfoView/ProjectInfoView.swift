@@ -41,14 +41,6 @@ struct ProjectInfoView: View {
                     Spacer()
                 }
                 .padding(.top, 56)
-
-                Text("Especies")
-                    .font(.title3)
-                    .padding(.top, 72)
-
-                Text(lorem)
-                    .font(.body)
-                    .padding(.top, 28)
             }
             .padding(.horizontal, 36)
             .padding(.bottom, 40)
