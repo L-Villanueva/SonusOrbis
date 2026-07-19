@@ -47,8 +47,8 @@
             "fuentes": "Surround",
             "audio": ["ANTROPICO_Y_AVES_audio"],
             "coordenadas": {
-                "lat": 10.295278,
-                "lng": -65.872222
+                "lat": 10.295878,
+                "lng": -65.872589
             },
             "hora": "18:14",
             "imagen": null,
@@ -131,8 +131,8 @@
             "fuentes": "Surround",
             "audio": ["LA_COLONIA_audio"],
             "coordenadas": {
-                "lat": 10.294722,
-                "lng": -65.8725
+                "lat": 10.295378,
+                "lng": -65.872222
             },
             "hora": "17:46",
             "imagen": null,
@@ -215,8 +215,8 @@
             "fuentes": "Surround",
             "audio": ["AVES_3_audio"],
             "coordenadas": {
-                "lat": 10.295378,
-                "lng": -65.872222
+                "lat": 10.294722,
+                "lng": -65.8725
             },
             "hora": "17:52",
             "imagen": "image_17",
@@ -233,7 +233,7 @@
                 "lng": -65.853333
             },
             "hora": "18:03",
-            "imagen": "image_18",
+            "imagen": "image_15",
             "video": null,
             "dia": "2025-10-26",
             "type": "naturaleza"
@@ -257,8 +257,8 @@
             "fuentes": "Surround",
             "audio": ["NAT_8_audio"],
             "coordenadas": {
-                "lat": 10.300961,
-                "lng": -65.864461
+                "lat": 10.300297,
+                "lng": -65.873944
             },
             "hora": "18:20",
             "imagen": null,

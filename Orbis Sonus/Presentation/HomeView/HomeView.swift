@@ -12,7 +12,7 @@ struct HomeView: View {
     
     @StateObject var viewModel: ViewModel = ViewModel()
     @StateObject private var audioPlayerManager = AudioPlayerManager()
-    @State private var mapStyleSatellite: Bool = false
+    @State private var mapStyleSatellite: Bool = true
 
     var body: some View {
         ZStack {
