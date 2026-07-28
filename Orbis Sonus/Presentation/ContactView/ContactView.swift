@@ -18,7 +18,7 @@ struct ContactView: View {
             HStack(spacing: 16) {
                 Image(systemName: "envelope")
                 VStack(spacing: 8) {
-                    Text("daniellandaeta98@gmail.com")
+                    Text("danielandaeta98@gmail.com")
                         .font(.body)
                     Text("orbis.sonus@gmail.com")
                         .font(.body)

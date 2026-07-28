@@ -11,19 +11,23 @@ import SwiftUI
 struct ProjectInfoView: View {
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                Image(.yemayao)
-                    .resizable()
-                    .scaledToFit()
-                    .padding(.top, 32)
+            VStack(alignment: .leading, spacing: 28) {
+                HStack {
+                    Spacer()
+
+                    Image(.yemayao)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: 520, alignment: .leading)
+                    
+                    Spacer()
+                }
 
                 Text("Acerca del proyecto")
                     .font(.title3)
-                    .padding(.top, 28)
 
                 Text(firstText)
                     .font(.body)
-                    .padding(.top, 28)
 
                 HStack {
                     Spacer()
@@ -40,7 +44,7 @@ struct ProjectInfoView: View {
 
                     Spacer()
                 }
-                .padding(.top, 56)
+                .padding(.top, 28)
             }
             .padding(.horizontal, 36)
             .padding(.bottom, 40)

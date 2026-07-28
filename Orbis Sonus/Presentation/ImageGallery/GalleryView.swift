@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import UIKit
 
 
 struct GalleryView: View {
@@ -19,8 +20,8 @@ struct GalleryView: View {
             ScrollViewReader { scrollProxy in
                 ScrollView {
                     VStack(spacing: 20) {
-                        let itemHeight: CGFloat = 300
-                        let itemWidth: CGFloat = geo.size.width - 120
+                        let itemHeight: CGFloat = usesSheetPresentation ? 300 : 400
+                        let itemWidth: CGFloat = usesSheetPresentation ? geo.size.width - 120 : 500
 
                         carousel(itemHeight, itemWidth)
                             .id("carouselTop")
@@ -45,18 +46,71 @@ struct GalleryView: View {
                         gallery(scrollProxy: scrollProxy)
                         Spacer()
                     }
-                    .sheet(isPresented: $showFull) {
+                    .sheet(isPresented: sheetPresentation) {
                         if let currentIndex {
                             images[currentIndex % images.count]
                                 .resizable()
                                 .scaledToFit()
                         }
                     }
+                    .fullScreenCover(isPresented: fullScreenPresentation) {
+                        ZStack(alignment: .topTrailing) {
+                            Color.black
+                                .ignoresSafeArea()
+
+                            if let currentIndex {
+                                images[currentIndex % images.count]
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            }
+
+                            Button {
+                                showFull = false
+                            } label: {
+                                Label("Cerrar", systemImage: "xmark")
+                                    .font(.headline)
+                                    .padding(.horizontal, 14)
+                                    .padding(.vertical, 10)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(.white.opacity(0.9))
+                            .foregroundStyle(.black)
+                            .padding(.top, 18)
+                            .padding(.trailing, 18)
+                        }
+                    }
                 }
             }
         }
     }
-    
+
+    private var usesSheetPresentation: Bool {
+        UIDevice.current.userInterfaceIdiom == .phone
+    }
+
+    private var sheetPresentation: Binding<Bool> {
+        Binding(
+            get: { showFull && usesSheetPresentation },
+            set: { isPresented in
+                if !isPresented {
+                    showFull = false
+                }
+            }
+        )
+    }
+
+    private var fullScreenPresentation: Binding<Bool> {
+        Binding(
+            get: { showFull && !usesSheetPresentation },
+            set: { isPresented in
+                if !isPresented {
+                    showFull = false
+                }
+            }
+        )
+    }
+
     private func hiddenTabView(index: Binding<Int?>) -> some View {
         TabView(selection: index) {
             ForEach(0..<images.count, id: \.self) { index in
@@ -72,7 +126,7 @@ struct GalleryView: View {
     
     private func gallery(scrollProxy: ScrollViewProxy) -> some View {
         
-        let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 3)
+        let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: usesSheetPresentation ? 3 : 5)
         
         return LazyVGrid(columns: columns, spacing: 8) {
             ForEach(0..<images.count, id: \.self) { index in

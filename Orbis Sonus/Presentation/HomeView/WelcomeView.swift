@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import AVFoundation
+import Combine
 
 struct WelcomeView: View {
+    @StateObject private var welcomeAudioPlayer = WelcomeAudioPlayer(assetName: "NAT_8_audio")
+
     let onStart: () -> Void
 
     var body: some View {
@@ -68,7 +72,10 @@ struct WelcomeView: View {
                     .padding(.bottom, 32)
                 }
 
-                Button(action: onStart) {
+                Button {
+                    welcomeAudioPlayer.stop()
+                    onStart()
+                } label: {
                     Text("Empezar")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
@@ -82,6 +89,49 @@ struct WelcomeView: View {
                 .background(.ultraThinMaterial)
             }
         }
+        .onAppear {
+            welcomeAudioPlayer.play()
+        }
+        .onDisappear {
+            welcomeAudioPlayer.stop()
+        }
+    }
+}
+
+private final class WelcomeAudioPlayer: ObservableObject {
+    private let assetName: String
+    private var player: AVAudioPlayer?
+
+    init(assetName: String) {
+        self.assetName = assetName
+    }
+
+    func play() {
+        guard player == nil else {
+            player?.play()
+            return
+        }
+
+        guard let dataAsset = NSDataAsset(name: assetName) else {
+            print("Welcome audio asset not found: \(assetName)")
+            return
+        }
+
+        do {
+            let audioPlayer = try AVAudioPlayer(data: dataAsset.data)
+            audioPlayer.numberOfLoops = -1
+            audioPlayer.prepareToPlay()
+            audioPlayer.play()
+            player = audioPlayer
+        } catch {
+            print("Welcome audio error: \(error)")
+        }
+    }
+
+    func stop() {
+        player?.stop()
+        player?.currentTime = 0
+        player = nil
     }
 }
 

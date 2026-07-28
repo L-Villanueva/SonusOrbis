@@ -31,7 +31,7 @@
         {
             "nombre": "NAT 1",
             "fuentes": "Surround",
-            "audio": ["LOGIC"],
+            "audio": ["NAT_1_audio"],
             "coordenadas": {
                 "lat": 10.295,
                 "lng": -65.872778
@@ -191,7 +191,7 @@
                 "lng": -65.835
             },
             "hora": "13:03",
-            "imagen": "image_15",
+            "imagen": null,
             "video": null,
             "dia": "2025-10-26",
             "type": "naturaleza"
