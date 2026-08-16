@@ -2,7 +2,7 @@
     "registros": [
         {
             "nombre": "MOTOR DE LANCHA 1",
-            "fuentes": "Stereo Binaural",
+            "fuentes": "Stereo",
             "audio": ["MOTOR_DE_LANCHA_1_audio", "MOTOR_DE_LANCHA_2_audio"],
             "coordenadas": {
                 "lat": 10.299722,
@@ -72,7 +72,7 @@
         },
         {
             "nombre": "PLAYA",
-            "fuentes": "Stereo Binaural",
+            "fuentes": "Stereo",
             "audio": ["PLAYA_1_audio"],
             "coordenadas": {
                 "lat": 10.3075,
@@ -86,7 +86,7 @@
         },
         {
             "nombre": "BOCA",
-            "fuentes": "Stereo Binaural",
+            "fuentes": "Stereo",
             "audio": ["BOCA_audio"],
             "coordenadas": {
                 "lat": 10.304444,
@@ -100,7 +100,7 @@
         },
         {
             "nombre": "NAT 2",
-            "fuentes": "Stereo Binaural",
+            "fuentes": "Stereo",
             "audio": ["NAT_2_audio"],
             "coordenadas": {
                 "lat": 10.299722,
@@ -114,7 +114,7 @@
         },
         {
             "nombre": "NAT 3",
-            "fuentes": "Stereo Binaural",
+            "fuentes": "Stereo",
             "audio": ["NAT_3_audio"],
             "coordenadas": {
                 "lat": 10.298333,

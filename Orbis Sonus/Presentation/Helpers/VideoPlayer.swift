@@ -12,6 +12,7 @@ struct VideoPlayerView: View {
     @State private var player: AVPlayer?
     @State private var aspectRatio: CGFloat = 16 / 9
     @State private var isFullscreen = false
+    @State private var playerObserver: NSObjectProtocol?
 
     private var isPortrait: Bool { aspectRatio < 1 }
     private let cornerRadius: CGFloat = 18
@@ -58,6 +59,12 @@ struct VideoPlayerView: View {
             .task {
                 await preparePlayer()
             }
+            .onDisappear {
+                if let observer = playerObserver {
+                    NotificationCenter.default.removeObserver(observer)
+                    playerObserver = nil
+                }
+            }
     }
 
     @MainActor
@@ -74,6 +81,11 @@ struct VideoPlayerView: View {
         let player = AVPlayer(url: tempURL)
         player.isMuted = true
         self.player = player
+
+        playerObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { _ in
+            player.seek(to: .zero)
+            player.play()
+        }
     }
 
     private func loadAspectRatio(from url: URL) async -> CGFloat? {

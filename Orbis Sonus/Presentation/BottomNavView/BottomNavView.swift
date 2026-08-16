@@ -121,6 +121,8 @@ struct BottomNavContent: View {
                     }
                 } label: {
                     Image(systemName: audioPlayerManager.isPlaying ? "pause.fill" : "play.fill")
+                        .padding(16)
+                        .contentShape(Rectangle())
                         .font(.title3)
                 }
                 
@@ -138,6 +140,8 @@ struct BottomNavContent: View {
                     audioPlayerManager.stop()
                 } label: {
                     Image(systemName: "stop.fill")
+                        .padding(16)
+                        .contentShape(Rectangle())
                         .font(.title3)
                 }
             }
@@ -145,3 +149,4 @@ struct BottomNavContent: View {
         .animation(.easeInOut, value: audioPlayerManager.hasActiveTrack)
     }
 }
+
